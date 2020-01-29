@@ -1,0 +1,29 @@
+<h1>Promoções</h1>
+
+<%= link_to 'Registrar promoção', new_promotion_path %>
+
+<% if @promotions.any? %>
+<table>
+  <thead>
+    <th>
+      <td>Descrição</td>
+      <td>Prefixo</td>
+      <td>Desconto</td>
+      <td>Período</td>
+      <td>Cupons</td>
+    </th>
+  </thead>
+  <tbody>
+  <% @promotions.each do |promotion| %>
+    <tr>
+    <td><%= link_to promotion.description, promotion_path(promotion) %></td>
+    <td><%= promotion.prefix %></td>
+    <td><%= promotion.discount_percentage %>%</td>
+    <td><%= promotion.max_usage %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<% else %>
+  <p>Nenhuma promoção registrada</p>
+<% end %>
