@@ -68,27 +68,6 @@ feature 'Promotion management' do
       expect(page).to have_content(1.day.from_now.strftime('%d/%m/%Y'))
       expect(page).to have_content(10)
     end
-
-    scenario 'and returns to the promotions index' do
-      visit new_promotion_path
-
-      within 'form' do
-        fill_in 'Descrição', with: 'Páscoa da Locaweb com você'
-        fill_in 'Prefixo', with: 'PASCOA'
-        fill_in 'Porcentagem de desconto', with: 10
-        fill_in 'Valor máximo de desconto', with: 20
-        fill_in 'Data de início', with: Date.current
-        fill_in 'Data de fim', with: 1.day.from_now
-        fill_in 'Uso máximo', with: 10
-
-        click_on 'Enviar'
-      end
-
-      click_on 'Voltar'
-
-      expect(page).to have_content 'Páscoa da Locaweb com você'
-      expect(current_path).to eq promotions_path
-    end
   end
 
   context 'user edits a promotion' do

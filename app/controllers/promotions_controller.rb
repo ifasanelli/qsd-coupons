@@ -13,11 +13,11 @@ class PromotionsController < ApplicationController
 
   def create
     @promotion = Promotion.new(promotion_params)
-
-    return redirect_to @promotion,
-      notice: 'Promoção registrada com sucesso' if @promotion.save
-
-    render :new
+    if @promotion.save
+      redirect_to @promotion, notice: 'Promoção registrada com sucesso'
+    else
+      render :new
+    end
   end
 
   def edit
@@ -26,10 +26,11 @@ class PromotionsController < ApplicationController
 
   def update
     @promotion = Promotion.find(params[:id])
-    return redirect_to @promotion, notice: 'Promoção editada '\
-      'com sucesso' if @promotion.update(promotion_params)
-
-    render :edit
+    if @promotion.update(promotion_params)
+      redirect_to @promotion, notice: 'Promoção editada com sucesso'
+    else
+      render :edit
+    end
   end
 
   private

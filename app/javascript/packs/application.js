@@ -7,6 +7,7 @@ require("@rails/ujs").start()
 require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
+import '../jquery/jquery-2.1.4.min.js'
 require("locawebstyle")
 
 import 'locawebstyle/dist/stylesheets/locastyle.css'

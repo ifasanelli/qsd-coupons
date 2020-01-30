@@ -1,40 +1,56 @@
-<%= form_with model: @promotion, local:true do |f| %>
-  <div>
-    <%= f.label :description, 'Descrição' %>
-    <%= f.text_field :description %>
-  </div>
+<%= form_with model: @promotion, local: true, class: 'ls-form row' do |f| %>
+  <fieldset>
+    <div>
+      <%= f.label :description, class: 'ls-label col-md-6' do %>
+        <b class="ls-label-text">Descrição</b>
+        <%= f.text_field :description %>
+      <% end %>
+    </div>
 
-  <div>
-    <%= f.label :prefix, 'Prefixo' %>
-    <%= f.text_field :prefix %>
-  </div>
+    <div>
+      <%= f.label :prefix, class: 'ls-label col-md-6' do %>
+        <b class="ls-label-text">Prefixo</b>
+        <%= f.text_field :prefix %>
+      <% end %>
+    </div>
 
-  <div>
-    <%= f.label :discount_percentage, 'Porcentagem de desconto' %>
-    <%= f.text_field :discount_percentage %>
-  </div>
+    <div>
+      <%= f.label :discount_percentage, class: 'ls-label col-md-6' do %>
+        <b class="ls-label-text">Porcentagem de desconto</b>
+        <%= f.text_field :discount_percentage %>
+      <% end %>
+    </div>
 
-  <div>
-    <%= f.label :max_discount_value, 'Valor máximo de desconto' %>
-    <%= f.text_field :max_discount_value %>
-  </div>
+    <div>
+      <%= f.label :max_discount_value, class: 'ls-label col-md-6' do %>
+        <b class="ls-label-text">Valor máximo de desconto</b>
+        <%= f.text_field :max_discount_value %>
+      <% end %>
+    </div>
 
-  <div>
-    <%= f.label :start_date, 'Data de início' %>
-    <%= f.date_field :start_date %>
-  </div>
+    <div>
+      <%= f.label :start_date, class: 'ls-label col-md-6' do %>
+        <b class="ls-label-text">Data de início</b>
+        <%= f.text_field :start_date %>
+      <% end %>
+    </div>
 
-  <div>
-    <%= f.label :end_date, 'Data de fim' %>
-    <%= f.date_field :end_date %>
-  </div>
+    <div>
+      <%= f.label :end_date, class: 'ls-label col-md-6' do %>
+        <b class="ls-label-text">Data de fim</b>
+        <%= f.text_field :end_date %>
+      <% end %>
+    </div>
 
-  <div>
-    <%= f.label :max_usage, 'Uso máximo' %>
-    <%= f.number_field :max_usage %>
-  </div>
+    <div>
+      <%= f.label :max_usage, class: 'ls-label col-md-6' do %>
+        <b class="ls-label-text">Uso máximo</b>
+        <%= f.text_field :max_usage %>
+      <% end %>
+    </div>
 
-  <div>
-    <%= f.submit 'Enviar' %>
-  </div>
+    <div>
+      <%= f.submit 'Enviar', class: 'ls-btn-primary ls-ico-plus' %>
+    </div>
+  </fieldset>
 <% end %>

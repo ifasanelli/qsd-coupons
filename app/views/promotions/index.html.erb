@@ -1,6 +1,7 @@
-<h1>Promoções</h1>
-
-<%= link_to 'Registrar promoção', new_promotion_path %>
+<h1 class="ls-title-intro ls-ico-dashboard">
+  Promoções
+  <%= link_to 'Registrar promoção', new_promotion_path, class: 'ls-btn-primary ls-ico-plus' %>
+</h1>
 
 <% if @promotions.any? %>
 <table>
