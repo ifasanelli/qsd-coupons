@@ -3,7 +3,7 @@ require 'rails_helper'
 describe Promotion do
   context 'on creating' do
     it 'successfully' do
-      promotion = build(:promotion, 
+      promotion = build(:promotion,
                         description: 'Natal da Loca', prefix: 'NATAL',
                         discount_percentage: 10.0, max_discount_value: 50,
                         start_date: Date.current, end_date: 1.day.from_now,
@@ -69,11 +69,11 @@ describe Promotion do
                                 'maior que a Data de fim')
     end
   end
-  context '#is_start_date_in_present?' do
+  context '#start_date_in_present?' do
     it 'successfully' do
       promotion = build(:promotion, start_date: Date.current)
 
-      promotion.is_start_date_in_present?
+      promotion.start_date_in_present?
       result = promotion.errors.full_messages
 
       expect(result).not_to include('Data de início não pode estar no passado')
@@ -81,18 +81,18 @@ describe Promotion do
     it 'and date is in the past' do
       promotion = build(:promotion, start_date: 1.day.ago)
 
-      promotion.is_start_date_in_present?
+      promotion.start_date_in_present?
       result = promotion.errors.full_messages
 
       expect(result).to include('Data de início não pode estar no passado')
     end
   end
-  context '#is_start_date_greater_than_end_date?' do
+  context '#start_date_greater_than_end_date?' do
     it 'successfully' do
       promotion = build(:promotion,
                         start_date: Date.current, end_date: 1.day.from_now)
 
-      promotion.is_start_date_greater_than_end_date?
+      promotion.start_date_greater_than_end_date?
       result = promotion.errors.full_messages
 
       expect(result).not_to include('Data de início não pode ser '\
@@ -102,7 +102,7 @@ describe Promotion do
       promotion = build(:promotion,
                         start_date: 1.day.from_now, end_date: Date.current)
 
-      promotion.is_start_date_greater_than_end_date?
+      promotion.start_date_greater_than_end_date?
       result = promotion.errors.full_messages
 
       expect(result).to include('Data de início não pode ser '\

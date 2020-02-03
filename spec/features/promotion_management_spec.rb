@@ -68,6 +68,19 @@ feature 'Promotion management' do
       expect(page).to have_content(1.day.from_now.strftime('%d/%m/%Y'))
       expect(page).to have_content(10)
     end
+
+    scenario 'with all fields in blank' do
+      visit new_promotion_path
+      click_on 'Enviar'
+
+      expect(page).to have_content('Há erros de preenchimento:')
+      expect(page).to have_content('Descrição não pode ficar em branco')
+      expect(page).to have_content('Porcentagem de desconto não pode ficar '\
+                                   'em branco')
+      expect(page).to have_content('Valor máximo de desconto não pode ficar '\
+                                   'em branco')
+      expect(page).to have_content('Uso máximo não pode ficar em branco')
+    end
   end
 
   context 'user edits a promotion' do
@@ -99,6 +112,29 @@ feature 'Promotion management' do
       expect(page).to have_content(Date.current.strftime('%d/%m/%Y'))
       expect(page).to have_content(1.day.from_now.strftime('%d/%m/%Y'))
       expect(page).to have_content(10)
+    end
+    scenario 'with all fields in blank' do
+      promotion = create(:promotion)
+
+      visit edit_promotion_path(promotion)
+      within 'form' do
+        fill_in 'Descrição', with: ''
+        fill_in 'Prefixo', with: ''
+        fill_in 'Porcentagem de desconto', with: ''
+        fill_in 'Valor máximo de desconto', with: ''
+        fill_in 'Data de início', with: ''
+        fill_in 'Data de fim', with: ''
+        fill_in 'Uso máximo', with: ''
+        click_on 'Enviar'
+      end
+
+      expect(page).to have_content('Há erros de preenchimento:')
+      expect(page).to have_content('Descrição não pode ficar em branco')
+      expect(page).to have_content('Porcentagem de desconto não pode ficar '\
+                                   'em branco')
+      expect(page).to have_content('Valor máximo de desconto não pode ficar '\
+                                   'em branco')
+      expect(page).to have_content('Uso máximo não pode ficar em branco')
     end
   end
 end

@@ -1,4 +1,13 @@
 <%= form_with model: @promotion, local: true, class: 'ls-form row' do |f| %>
+
+<% if @promotion.errors.any? %>
+  <div class="ls-alert-danger"><strong>Há erros de preenchimento:</strong>
+  <% @promotion.errors.full_messages.each do |msg| %>
+    <p><%= msg %></p>
+  <% end %>
+  </div>
+<% end%>
+
   <fieldset>
     <div>
       <%= f.label :description, class: 'ls-label col-md-6' do %>
