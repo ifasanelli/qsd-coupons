@@ -4,6 +4,6 @@ Rails.application.routes.draw do
 
   root to: 'home#index'
   resources :promotions, only: [:show] do
-    resources :coupons, only: [:create]
+    resources :coupons, only: [:index, :create]
   end
 end

@@ -1,1 +1,11 @@
-<%= link_to 'Emitir cupons', promotion_coupons_path(@promotion), method: :post if @promotion.approved? %>
+<% if @promotion.approved? %>
+  <%= link_to 'Emitir cupons', promotion_coupons_path(@promotion), method: :post if @promotion.approved? %>
+<% elsif @promotion.issued? %>
+<%= p 'entrou'%>
+  <% @cupons.each do |cupon| %>
+    <%= link_to cupon.code, cupon %>
+  <% end %>
+<% else %>
+  <p> Promoção aguardando aprovação  </p>
+<% end %>
+
