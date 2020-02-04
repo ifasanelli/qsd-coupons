@@ -6,4 +6,11 @@ Rails.application.routes.draw do
   resources :promotions, only: %i[index show new create edit update] do
     resources :coupons, only: %i[index create show destroy]
   end
+
+  namespace :api do
+    namespace :v1 do
+      resources :coupons, only: [:index, :show, :create, :update, :destroy]
+    end
+  end
+
 end
