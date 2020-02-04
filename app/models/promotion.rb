@@ -1,4 +1,5 @@
 class Promotion < ApplicationRecord
+  enum status: { waiting_for_approval: 0, approved: 5 }
   validates :description, :prefix, :discount_percentage, :max_discount_value,
             :start_date, :end_date, :max_usage, presence: true
   validates :prefix, length: { maximum: 6 }

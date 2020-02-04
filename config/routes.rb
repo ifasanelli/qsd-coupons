@@ -4,5 +4,7 @@ Rails.application.routes.draw do
 
   root to: 'home#index'
 
-  resources :promotions, only: %i[index show new create edit update]
+  resources :promotions, only: %i[index show new create edit update] do
+    post 'approve', on: :member, to: 'promotions#approve'
+  end
 end
