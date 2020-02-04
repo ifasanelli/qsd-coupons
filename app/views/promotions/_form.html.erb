@@ -1,0 +1,65 @@
+<%= form_with model: @promotion, local: true, class: 'ls-form row' do |f| %>
+
+<% if @promotion.errors.any? %>
+  <div class="ls-alert-danger"><strong>Há erros de preenchimento:</strong>
+  <% @promotion.errors.full_messages.each do |msg| %>
+    <p><%= msg %></p>
+  <% end %>
+  </div>
+<% end%>
+
+  <fieldset>
+    <div>
+      <%= f.label :description, class: 'ls-label col-md-6' do %>
+        <b class="ls-label-text">Descrição</b>
+        <%= f.text_field :description %>
+      <% end %>
+    </div>
+
+    <div>
+      <%= f.label :prefix, class: 'ls-label col-md-6' do %>
+        <b class="ls-label-text">Prefixo</b>
+        <%= f.text_field :prefix %>
+      <% end %>
+    </div>
+
+    <div>
+      <%= f.label :discount_percentage, class: 'ls-label col-md-6' do %>
+        <b class="ls-label-text">Porcentagem de desconto</b>
+        <%= f.text_field :discount_percentage %>
+      <% end %>
+    </div>
+
+    <div>
+      <%= f.label :max_discount_value, class: 'ls-label col-md-6' do %>
+        <b class="ls-label-text">Valor máximo de desconto</b>
+        <%= f.text_field :max_discount_value %>
+      <% end %>
+    </div>
+
+    <div>
+      <%= f.label :start_date, class: 'ls-label col-md-6' do %>
+        <b class="ls-label-text">Data de início</b>
+        <%= f.text_field :start_date %>
+      <% end %>
+    </div>
+
+    <div>
+      <%= f.label :end_date, class: 'ls-label col-md-6' do %>
+        <b class="ls-label-text">Data de fim</b>
+        <%= f.text_field :end_date %>
+      <% end %>
+    </div>
+
+    <div>
+      <%= f.label :max_usage, class: 'ls-label col-md-6' do %>
+        <b class="ls-label-text">Uso máximo</b>
+        <%= f.text_field :max_usage %>
+      <% end %>
+    </div>
+
+    <div>
+      <%= f.submit 'Enviar', class: 'ls-btn-primary ls-ico-plus' %>
+    </div>
+  </fieldset>
+<% end %>

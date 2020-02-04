@@ -1,0 +1,30 @@
+<h1 class="ls-title-intro ls-ico-dashboard">
+  Promoções
+  <%= link_to 'Registrar promoção', new_promotion_path, class: 'ls-btn-primary ls-ico-plus' %>
+</h1>
+
+<% if @promotions.any? %>
+<table>
+  <thead>
+    <th>
+      <td>Descrição</td>
+      <td>Prefixo</td>
+      <td>Desconto</td>
+      <td>Período</td>
+      <td>Cupons</td>
+    </th>
+  </thead>
+  <tbody>
+  <% @promotions.each do |promotion| %>
+    <tr>
+    <td><%= link_to promotion.description, promotion_path(promotion) %></td>
+    <td><%= promotion.prefix %></td>
+    <td><%= promotion.discount_percentage %>%</td>
+    <td><%= promotion.max_usage %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<% else %>
+  <p>Nenhuma promoção registrada</p>
+<% end %>

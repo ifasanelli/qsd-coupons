@@ -21,8 +21,8 @@ feature 'User create coupon' do
     login_as(user, scope: :user)
     visit promotion_path(promotion)
 
-    expect(page).to_not have_link("Emitir cupons")
-    expect(page).to have_content("Promoção aguardando aprovação")
+    expect(page).to_not have_link('Emitir cupons')
+    expect(page).to have_content('Promoção aguardando aprovação')
   end
 
   scenario '(promotion must be approved to issue coupons by url)' do
@@ -30,17 +30,15 @@ feature 'User create coupon' do
     promotion = create(:promotion, status: :waiting_approval)
 
     login_as(user, scope: :user)
-    page.driver.submit :post, promotion_coupons_path(promotion), {:promotion_id => promotion}
+    page.driver.submit :post, promotion_coupons_path(promotion),
+                       promotion_id: promotion.id
 
     expect(current_path).to eq(promotion_path(promotion))
-    expect(page).to have_content("Promoção aguardando aprovação")
+    expect(page).to have_content('Promoção aguardando aprovação')
   end
 
   scenario '(must be authenticated)' do
-    page.driver.submit :post, promotion_coupons_path(000), {}
-
+    page.driver.submit :post, promotion_coupons_path(0), {}
     expect(current_path).to eq(new_user_session_path)
   end
 end
-
-

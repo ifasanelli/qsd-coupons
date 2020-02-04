@@ -1,0 +1,16 @@
+---
+pt-BR:
+  activerecord:
+    models:
+      promotion:
+        one: 'Promoção'
+        other: 'Promoções'
+    attributes:
+      promotion:
+        description: 'Descrição'
+        prefix: 'Prefixo'
+        discount_percentage: 'Porcentagem de desconto'
+        max_discount_value: 'Valor máximo de desconto'
+        start_date: 'Data de início'
+        end_date: 'Data de fim'
+        max_usage: 'Uso máximo'
