@@ -140,8 +140,8 @@ feature 'Promotion management' do
 
   context 'activate a promotion' do
     scenario 'successfully' do
-      promotion = create(:promotion, description: 'Natal da Loca', 
-                                     status: :waiting_for_approval)
+      create(:promotion, description: 'Natal da Loca',
+                         status: :waiting_for_approval)
 
       visit root_path
       click_on 'Promoções'
