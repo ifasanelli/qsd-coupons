@@ -1,3 +1,4 @@
+
 <h1 class="ls-title-intro ls-ico-dashboard">
   Promoção
 </h1>
@@ -47,3 +48,14 @@
 <% end %>
 
 <%= link_to 'Editar', edit_promotion_path(@promotion) %>
+
+<% if @promotion.approved? %>
+  <%= link_to 'Emitir cupons', promotion_coupons_path(@promotion), method: :post if @promotion.approved? %>
+<% elsif @promotion.issued? %>
+  <% @coupons.each do |coupon| %>
+    <%= link_to coupon.code, promotion_coupon_path(coupon.id)  %>
+  <% end %>
+<% else %>
+  <p> Promoção aguardando aprovação  </p>
+<% end %>
+

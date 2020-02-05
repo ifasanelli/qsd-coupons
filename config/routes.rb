@@ -6,5 +6,6 @@ Rails.application.routes.draw do
 
   resources :promotions, only: %i[index show new create edit update] do
     post 'approve', on: :member, to: 'promotions#approve'
+    resources :coupons, only: %i[index create show destroy]
   end
 end

@@ -1,5 +1,6 @@
 class Promotion < ApplicationRecord
-  enum status: { waiting_for_approval: 0, approved: 5 }
+  has_many :coupons, dependent: :destroy
+  enum status: { waiting_for_approval: 0, approved: 1, issued: 5 }
   validates :description, :prefix, :discount_percentage, :max_discount_value,
             :start_date, :end_date, :max_usage, presence: true
   validates :prefix, length: { maximum: 6 }
@@ -21,5 +22,16 @@ class Promotion < ApplicationRecord
                   start_date > end_date
 
     errors.add :start_date, 'não pode ser maior que a Data de fim'
+  end
+
+  def generate_coupons
+    max_usage.times do |i|
+      code = prefix +  (i + 1).to_s.rjust(4, '0')
+      coupons.create!(code: code)
+    end
+  end
+
+  def discard_coupons
+    coupons.status = 1
   end
 end

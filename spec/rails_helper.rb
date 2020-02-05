@@ -72,7 +72,10 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
-  # Authentication with Devise
+  # ADDED!
+  config.include Warden::Test::Helpers
+
+  # ADDED! Authentication with Devise
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::ControllerHelpers, type: :view
 end
