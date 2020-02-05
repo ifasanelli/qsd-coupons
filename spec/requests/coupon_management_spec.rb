@@ -9,7 +9,7 @@ describe 'Coupons management' do
           create(:coupon, code: 'HOSP0003', promotion_id: promotion.id)
           produto = Product.new(1,'Hospedagem')
 
-          get confer_api_v1_coupon_path(cuponA), {coupon: cuponA.code,product: produto.id,price: 1000}
+          get confer_api_v1_coupon_path(cuponA), params: {coupon: cuponA.code,product: produto.id,price: 1000}
 
           converted_json = JSON.parse(response.body, symbolize_names: true)
           expect(response).to have_http_status(:ok)
