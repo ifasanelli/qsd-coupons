@@ -7,9 +7,11 @@ describe 'Coupon management' do
       coupon = create(:coupon, 
                       code: 'NATAL0001', status: :created, promotion: promotion)
 
-      patch "/api/v1/promotions/1/coupons/#{coupon.id}/use"
-      json = JSON.parse(response.body, symbolize_names: true)
+      patch "/api/v1/coupons/burn_coupon",
+            params: {code: 'NATAL0001'}
 
+      json = JSON.parse(response.body, symbolize_names: true)
+        p json[:status]
       expect(response).to have_http_status :ok
       expect(json[:code]).to eq 'NATAL0001'
       expect(json[:status]).to eq 'burned'
