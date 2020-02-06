@@ -15,7 +15,8 @@
         <%= f.text_field :description %>
       <% end %>
     </div>
-
+    <%= f.label :product_type, 'Produto' %>
+    <%= f.select(:product_type, options_from_collection_for_select(@products, :key, :key)) %>
     <div>
       <%= f.label :prefix, class: 'ls-label col-md-6' do %>
         <b class="ls-label-text">Prefixo</b>

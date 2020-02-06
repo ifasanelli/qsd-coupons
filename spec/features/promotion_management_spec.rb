@@ -43,6 +43,9 @@ feature 'Promotion management' do
 
   context 'user registers a promotion' do
     scenario 'successfully' do
+      products = [ Product.new(1, 'HOSP'), Product.new(2, 'CLOUD') ]
+      allow(Product).to receive(:all).and_return(products)
+
       visit root_path
       click_on 'Promoções'
       click_on 'Registrar promoção'
@@ -55,6 +58,7 @@ feature 'Promotion management' do
         fill_in 'Data de início', with: Date.current
         fill_in 'Data de fim', with: 1.day.from_now
         fill_in 'Uso máximo', with: 10
+        select 'HOSP', from: 'Produto'
 
         click_on 'Enviar'
       end
@@ -63,6 +67,7 @@ feature 'Promotion management' do
       expect(page).to have_content('Páscoa da Locaweb com você')
       expect(page).to have_content('PASCOA')
       expect(page).to have_content('10.0%')
+      expect(page).to have_content('HOSP')
       expect(page).to have_content(20)
       expect(page).to have_content(Date.current.strftime('%d/%m/%Y'))
       expect(page).to have_content(1.day.from_now.strftime('%d/%m/%Y'))
@@ -70,6 +75,8 @@ feature 'Promotion management' do
     end
 
     scenario 'with all fields in blank' do
+      allow(Product).to receive(:all).and_return([])
+
       visit new_promotion_path
       click_on 'Enviar'
 
@@ -85,7 +92,10 @@ feature 'Promotion management' do
 
   context 'user edits a promotion' do
     scenario 'successfully' do
-      create(:promotion, description: 'Natal da Loca')
+      products = [ Product.new(1, 'HOSP'), Product.new(2, 'CLOUD') ]
+      allow(Product).to receive(:all).and_return(products)
+
+      create(:promotion, description: 'Natal da Loca', product_type: 'HOSP')
 
       visit root_path
       click_on 'Promoções'
@@ -100,6 +110,7 @@ feature 'Promotion management' do
         fill_in 'Data de início', with: Date.current
         fill_in 'Data de fim', with: 1.day.from_now
         fill_in 'Uso máximo', with: 10
+        select 'CLOUD', from: 'Produto'
 
         click_on 'Enviar'
       end
@@ -107,6 +118,7 @@ feature 'Promotion management' do
       expect(page).to have_content('Promoção editada com sucesso')
       expect(page).to have_content('Páscoa da Locaweb com você')
       expect(page).to have_content('PASCOA')
+      expect(page).to have_content('CLOUD')
       expect(page).to have_content('10.0%')
       expect(page).to have_content(20)
       expect(page).to have_content(Date.current.strftime('%d/%m/%Y'))
