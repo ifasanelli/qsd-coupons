@@ -48,6 +48,14 @@ class PromotionsController < ApplicationController
     redirect_to @promotion
   end
 
+  def generate_singles
+    @promotion = Promotion.find(params[:id])
+    @promotion.issued!
+    @promotion.generate_single
+    flash[:notice] = "Foi criado mais 1 cupom"
+    redirect_to @promotion
+  end
+
   private
 
   def promotion_params

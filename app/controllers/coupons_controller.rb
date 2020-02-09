@@ -12,17 +12,20 @@ class CouponsController < ApplicationController
   end
 
   def index
-    @coupons = Coupons.all
+    @promotion = Promotion.all
+    @coupons = Coupon.all
   end
 
   def show
+    @promotion = Promotion.find(params[:id])
     @coupon = Coupon.find(params[:promotion_id])
   end
 
-  def destroy
+  def burn
+    @promotion = Promotion.find(params[:promotion_id])
     @coupon = Coupon.find(params[:id])
-    @coupon.destroy
+    @coupon.unavailable!
     flash[:notice] = 'Cupom deletado com sucesso'
-    redirect_to promotion_path(params[:promotion_id])
+    redirect_to promotion_path(@promotion)
   end
 end

@@ -31,6 +31,13 @@ class Promotion < ApplicationRecord
     end
   end
 
+  def generate_single
+      actual = coupons.count
+      code = prefix +  (actual).to_s.rjust(4, '0')
+      coupons.create!(code: code, status: 0)
+
+  end
+
   def discard_coupons
     coupons.status = 1
   end

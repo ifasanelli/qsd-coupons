@@ -6,6 +6,11 @@ Rails.application.routes.draw do
 
   resources :promotions, only: %i[index show new create edit update] do
     post 'approve', on: :member, to: 'promotions#approve'
-    resources :coupons, only: %i[index create show destroy]
+    post 'generate_coupons', on: :member, to: 'promotions#generate_coupons'
+    post 'generate_singles', on: :member, to: 'promotions#generate_singles'
+    resources :coupons, only: %i[index create show ]do
+    get 'burn', on: :member, to: 'coupons#burn'
   end
+  end
+
 end
