@@ -52,7 +52,7 @@ class PromotionsController < ApplicationController
     @promotion = Promotion.find(params[:id])
     @promotion.issued!
     @promotion.generate_single
-    flash[:notice] = "Foi criado mais 1 cupom"
+    flash[:notice] = 'Foi criado mais 1 cupom'
     redirect_to @promotion
   end
 

@@ -8,9 +8,8 @@ Rails.application.routes.draw do
     post 'approve', on: :member, to: 'promotions#approve'
     post 'generate_coupons', on: :member, to: 'promotions#generate_coupons'
     post 'generate_singles', on: :member, to: 'promotions#generate_singles'
-    resources :coupons, only: %i[index create show ]do
-    get 'burn', on: :member, to: 'coupons#burn'
+    resources :coupons, only: %i[index create show] do
+      get 'burn', on: :member, to: 'coupons#burn'
+    end
   end
-  end
-
 end

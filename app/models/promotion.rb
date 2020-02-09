@@ -1,6 +1,6 @@
 class Promotion < ApplicationRecord
   has_many :coupons, dependent: :destroy
-  enum status: %i[ waiting_for_approval approved issued ]
+  enum status: { waiting_for_approval: 0, approved: 1, issued: 2 }
   validates :description, :prefix, :discount_percentage, :max_discount_value,
             :start_date, :end_date, :max_usage, presence: true
   validates :prefix, length: { maximum: 6 }
@@ -32,10 +32,9 @@ class Promotion < ApplicationRecord
   end
 
   def generate_single
-      actual = coupons.count
-      code = prefix +  (actual).to_s.rjust(4, '0')
-      coupons.create!(code: code, status: 0)
-
+    actual = coupons.count
+    code = prefix + actual.to_s.rjust(4, '0')
+    coupons.create!(code: code, status: 0)
   end
 
   def discard_coupons
