@@ -49,13 +49,16 @@
 
 <%= link_to 'Editar', edit_promotion_path(@promotion) %>
 
-<% if @promotion.approved? %>
-  <%= link_to 'Emitir cupons', promotion_coupons_path(@promotion), method: :post if @promotion.approved? %>
-<% elsif @promotion.issued? %>
-  <% @coupons.each do |coupon| %>
-    <%= link_to coupon.code, promotion_coupon_path(coupon.id)  %>
-  <% end %>
+<% if @promotion.approved? or @promotion.issued? %>
+<%= form_tag(generate_coupons_promotion_path(@promotion), method: :post) do %>
+  <%= submit_tag 'Emitir cupons', class: 'ls-btn-primary' %>
+<% end %>
 <% else %>
   <p> Promoção aguardando aprovação  </p>
-<% end %>
+<%end%>
 
+<% if @promotion.issued? %>
+<% @coupons.available.each do |coupon| %>
+    <%= link_to coupon.code, promotion_coupon_path(coupon.id)  %>
+<% end %>
+<% end %>

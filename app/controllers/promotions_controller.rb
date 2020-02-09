@@ -37,8 +37,15 @@ class PromotionsController < ApplicationController
   def approve
     @promotion = Promotion.find(params[:id])
     @promotion.approved!
-
     redirect_to @promotion, notice: 'Promoção aprovada com sucesso'
+  end
+
+  def generate_coupons
+    @promotion = Promotion.find(params[:id])
+    @promotion.issued!
+    @promotion.generate_coupons
+    flash[:notice] = "Foram criados #{@promotion.max_usage} cupons"
+    redirect_to @promotion
   end
 
   private
