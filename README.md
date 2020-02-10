@@ -1,24 +1,24 @@
-# README
+## Uso / queima de cupons
+Endpoint:
+```
+http://localhost/api/v1/coupon/:code/burn
+```
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Onde `code` é o código do cupom. Por exemplo: `NATAL0001`.
 
-Things you may want to cover:
+### Cupom existente
+É retornado um JSON com o objeto do cupom e seu novo estado. No caso, `burned`.
 
-* Ruby version
+```json
+{
+  "id":1,
+  "status":"burned",
+  "promotion_id":1,
+  "code":"NATAL0001",
+  "created_at":"2020-02-10T19:27:40.009Z",
+  "updated_at":"2020-02-10T19:27:40.038Z"
+}
+```
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### Cupom inexistente
+Em caso do cupom candidato à queima não existir, retorna-se uma mensagem HTTP com código 404 (Not Found), sem corpo.
