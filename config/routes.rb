@@ -11,8 +11,8 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :coupons, only: [] do
-        post 'burn', on: :member
+      resource :coupon, only: [] do
+        post ':code/burn', to: 'coupons#burn'
       end
     end
   end
