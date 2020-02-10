@@ -10,10 +10,12 @@ class PromotionsController < ApplicationController
 
   def new
     @promotion = Promotion.new
+    # @products = Product.all
   end
 
   def create
     @promotion = Promotion.new(promotion_params)
+    # @product = Product.find(@promotion.product_id)
     if @promotion.save
       redirect_to @promotion, notice: 'Promoção registrada com sucesso'
     else
