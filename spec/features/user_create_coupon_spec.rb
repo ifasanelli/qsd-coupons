@@ -41,4 +41,19 @@ feature 'User create coupon' do
     page.driver.submit :post, promotion_coupons_path(0), {}
     expect(current_path).to eq(new_user_session_path)
   end
+
+  scenario '(create a single coupon after creating the first )' do
+    user = User.create!(email: 'teste@teste.com', password: '123456')
+    promotion = create(:promotion, status: :approved, max_usage: 3)
+
+    login_as(user, scope: :user)
+    visit promotion_path(promotion)
+    click_on 'Emitir cupons'
+    click_on 'Emitir cupons'
+
+    expect(page).to have_content('NATAL0001')
+    expect(page).to have_content('NATAL0002')
+    expect(page).to have_content('NATAL0003')
+    expect(page).to have_content('NATAL0004')
+  end
 end

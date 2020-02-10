@@ -19,6 +19,7 @@ class CouponsController < ApplicationController
   def show
     @promotion = Promotion.find(params[:id])
     @coupon = Coupon.find(params[:promotion_id])
+    redirect_to promotion_path(@promotion) if @coupon.unavailable?
   end
 
   def burn
