@@ -16,7 +16,7 @@ feature 'User create coupon' do
 
   scenario '(promotion needs to be approved to show button)' do
     user = User.create!(email: 'teste@teste.com', password: '123456')
-    promotion = create(:promotion, status: :waiting_approval)
+    promotion = create(:promotion, status: :waiting_for_approval)
 
     login_as(user, scope: :user)
     visit promotion_path(promotion)
@@ -27,7 +27,7 @@ feature 'User create coupon' do
 
   scenario '(promotion must be approved to issue coupons by url)' do
     user = User.create!(email: 'teste@teste.com', password: '123456')
-    promotion = create(:promotion, status: :waiting_approval)
+    promotion = create(:promotion, status: :waiting_for_approval)
 
     login_as(user, scope: :user)
     page.driver.submit :post, promotion_coupons_path(promotion),

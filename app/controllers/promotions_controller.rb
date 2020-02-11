@@ -34,6 +34,13 @@ class PromotionsController < ApplicationController
     end
   end
 
+  def approve
+    @promotion = Promotion.find(params[:id])
+    @promotion.approved!
+
+    redirect_to @promotion, notice: 'Promoção aprovada com sucesso'
+  end
+
   private
 
   def promotion_params
