@@ -58,8 +58,10 @@
 
     <div class="ls-actions-btn ls-float-right">
       <% unless @promotion.approved? %>
-        <%= form_tag(approve_promotion_path(@promotion), method: :post) do %>
-          <%= submit_tag 'Aprovar', class: 'ls-btn-primary' %>
+        <% unless @promotion.user == current_user%>
+          <%= form_tag(approve_promotion_path(@promotion), method: :post) do %>
+            <%= submit_tag 'Aprovar', class: 'ls-btn-primary' %>
+          <% end %>
         <% end %>
       <% end %>
     </div>

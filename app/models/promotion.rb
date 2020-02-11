@@ -1,4 +1,5 @@
 class Promotion < ApplicationRecord
+  belongs_to :user
   has_many :coupons, dependent: :destroy
   enum status: { waiting_for_approval: 0, approved: 1, issued: 5 }
   validates :description, :prefix, :discount_percentage, :max_discount_value,

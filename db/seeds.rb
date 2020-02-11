@@ -5,17 +5,18 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+promo_user = User.create!(email: 'promo_creator@gmail.com', password: '123456')
 
 Promotion.create!([
   { 
     description: 'Natal da Loca', prefix: 'NATAL', discount_percentage: 10.0, 
     max_discount_value: 50, start_date: 1.day.from_now,
-    end_date: 2.days.from_now, max_usage: 10, status: :issued
+    end_date: 2.days.from_now, max_usage: 10, status: :issued, user: promo_user
   },
   { 
     description: 'Páscoa da Loca', prefix: 'PASCOA', discount_percentage: 20.0, 
     max_discount_value: 75, start_date: Date.current, end_date: 1.day.from_now,
-    max_usage: 10, status: :waiting_for_approval
+    max_usage: 10, status: :waiting_for_approval, user: promo_user
   },
 ])
 

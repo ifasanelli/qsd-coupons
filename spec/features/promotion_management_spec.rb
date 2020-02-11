@@ -3,8 +3,9 @@ require 'rails_helper'
 feature 'Promotion management' do
   context 'user sees all promotions' do
     scenario 'with more than one registered' do
-      create(:promotion, description: 'Natal da Loca')
-      create(:promotion, description: 'Páscoa da Loca')
+      user = create(:user)
+      create(:promotion, description: 'Natal da Loca', user: user)
+      create(:promotion, description: 'Páscoa da Loca', user: user)
 
       visit root_path
       click_on 'Promoções'
@@ -43,10 +44,12 @@ feature 'Promotion management' do
 
   context 'user registers a promotion' do
     scenario 'successfully' do
+      user = create(:user, email: 'teste@gmail.com')
       visit root_path
       click_on 'Promoções'
       click_on 'Registrar promoção'
 
+      login_as(user, scope: :user)
       within 'form' do
         fill_in 'Descrição', with: 'Páscoa da Locaweb com você'
         fill_in 'Prefixo', with: 'PASCOA'
@@ -135,19 +138,6 @@ feature 'Promotion management' do
       expect(page).to have_content('Valor máximo de desconto não pode ficar '\
                                    'em branco')
       expect(page).to have_content('Uso máximo não pode ficar em branco')
-    end
-  end
-
-  context 'activate a promotion' do
-    scenario 'successfully' do
-      create(:promotion, description: 'Natal da Loca',
-                         status: :waiting_for_approval)
-
-      visit root_path
-      click_on 'Promoções'
-      click_on 'Natal da Loca'
-      click_on 'Aprovar'
-      expect(page).to have_content('Promoção aprovada com sucesso')
     end
   end
 end
