@@ -1,4 +1,4 @@
-class Product # PORO -> Plain Old Ruby Object
+class Product
   attr_accessor :id, :key
   def initialize(id, key)
     @id = id
@@ -6,7 +6,7 @@ class Product # PORO -> Plain Old Ruby Object
   end
 
   def self.all
-    response = Faraday.get('http://localhost:4000/api/v1/product_types')
+    response = Faraday.get('http://localhost:3000/api/v1/product_types')
     return [] if response.status == 500
 
     json = JSON.parse(response.body, symbolize_names: true)

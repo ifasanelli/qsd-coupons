@@ -43,6 +43,12 @@
   <p><%= @promotion.max_usage %></p>
 </div>
 
+<div>
+  <p><strong>Produto:</strong></p>
+  <p><%= @promotion.product_type %></p>
+</div>
+
+
 <%= form_tag(approve_promotion_path(@promotion), method: :post) do %>
   <%= submit_tag 'Aprovar', class: 'ls-btn-primary' %>
 <% end %>

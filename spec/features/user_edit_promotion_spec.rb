@@ -2,6 +2,8 @@ require 'rails_helper'
 
 feature 'User edits a promotion' do
   scenario 'successfully' do
+    products = [Product.new(1, 'HOSP'), Product.new(2, 'CLOUD')]
+    allow(Product).to receive(:all).and_return(products)
     create(:promotion, description: 'Natal da Loca')
 
     visit root_path
@@ -31,6 +33,8 @@ feature 'User edits a promotion' do
     expect(page).to have_content(10)
   end
   scenario 'with all fields in blank' do
+    products = [Product.new(1, 'HOSP'), Product.new(2, 'CLOUD')]
+    allow(Product).to receive(:all).and_return(products)
     promotion = create(:promotion)
 
     visit edit_promotion_path(promotion)
