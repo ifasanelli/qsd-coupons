@@ -13,7 +13,7 @@ module Api
         @coupon = Coupon.find_by(code: params[:code])
         return head :not_found if @coupon.blank?
 
-        return head :forbidden if @coupon.burned?
+        return head :forbidden if @coupon.burnt?
 
         burn_successfully
       end
