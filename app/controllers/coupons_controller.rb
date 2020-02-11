@@ -11,10 +11,6 @@ class CouponsController < ApplicationController
     redirect_to promotion_path(@promotion)
   end
 
-  def index
-    @coupons = Coupons.all
-  end
-
   def show
     @coupon = Coupon.find(params[:promotion_id])
   end

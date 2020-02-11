@@ -1,4 +1,5 @@
 class Promotion < ApplicationRecord
+  belongs_to :user
   has_many :coupons, dependent: :destroy
   enum status: { waiting_for_approval: 0, approved: 1, issued: 5 }
   validates :description, :prefix, :discount_percentage, :max_discount_value,
@@ -29,9 +30,5 @@ class Promotion < ApplicationRecord
       code = prefix +  (i + 1).to_s.rjust(4, '0')
       coupons.create!(code: code)
     end
-  end
-
-  def discard_coupons
-    coupons.status = 1
   end
 end

@@ -8,4 +8,12 @@ Rails.application.routes.draw do
     post 'approve', on: :member, to: 'promotions#approve'
     resources :coupons, only: %i[index create show destroy]
   end
+
+  namespace :api do
+    namespace :v1 do
+      resource :coupon, only: [] do
+        post ':code/burn', to: 'coupons#burn'
+      end
+    end
+  end
 end
