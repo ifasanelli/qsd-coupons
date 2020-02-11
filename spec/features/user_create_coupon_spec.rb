@@ -10,7 +10,10 @@ feature 'User create coupon' do
     click_on 'Emitir cupons'
 
     cupons = Coupon.count
+    promotion.reload
+
     expect(cupons).to eq(promotion.max_usage)
+    expect(promotion).to be_issued
     expect(page).to have_content("Foram criados #{promotion.max_usage} cupons")
   end
 
@@ -30,7 +33,7 @@ feature 'User create coupon' do
     promotion = create(:promotion, status: :waiting_for_approval)
 
     login_as(user, scope: :user)
-    page.driver.submit :post, promotion_coupons_path(promotion),
+    page.driver.submit :post, generate_coupons_promotion_path(promotion),
                        promotion_id: promotion.id
 
     expect(current_path).to eq(promotion_path(promotion))
@@ -38,7 +41,8 @@ feature 'User create coupon' do
   end
 
   scenario '(must be authenticated)' do
-    page.driver.submit :post, promotion_coupons_path(0), {}
+    promotion = create(:promotion, status: :waiting_for_approval)
+    page.driver.submit :post, generate_coupons_promotion_path(promotion.id), {}
     expect(current_path).to eq(new_user_session_path)
   end
 

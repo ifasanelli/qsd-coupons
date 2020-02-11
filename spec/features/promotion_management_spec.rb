@@ -6,6 +6,8 @@ feature 'Promotion management' do
       create(:promotion, description: 'Natal da Loca')
       create(:promotion, description: 'Páscoa da Loca')
 
+      user = User.create!(email: 'teste@teste.com', password: '123456')
+      login_as(user, scope: :user)
       visit root_path
       click_on 'Promoções'
 
@@ -17,6 +19,8 @@ feature 'Promotion management' do
       expect(page).to have_content '10.0%'
     end
     scenario 'with non-existing promotions' do
+      user = User.create!(email: 'teste@teste.com', password: '123456')
+      login_as(user, scope: :user)
       visit promotions_path
 
       expect(page).to have_content 'Nenhuma promoção registrada'
@@ -27,6 +31,8 @@ feature 'Promotion management' do
     scenario 'successfully' do
       create(:promotion, description: 'Natal da Loca')
 
+      user = User.create!(email: 'teste@teste.com', password: '123456')
+      login_as(user, scope: :user)
       visit root_path
       click_on 'Promoções'
       click_on 'Natal da Loca'
@@ -43,6 +49,8 @@ feature 'Promotion management' do
 
   context 'user registers a promotion' do
     scenario 'successfully' do
+      user = User.create!(email: 'teste@teste.com', password: '123456')
+      login_as(user, scope: :user)
       visit root_path
       click_on 'Promoções'
       click_on 'Registrar promoção'
@@ -70,6 +78,8 @@ feature 'Promotion management' do
     end
 
     scenario 'with all fields in blank' do
+      user = User.create!(email: 'teste@teste.com', password: '123456')
+      login_as(user, scope: :user)
       visit new_promotion_path
       click_on 'Enviar'
 
@@ -87,6 +97,8 @@ feature 'Promotion management' do
     scenario 'successfully' do
       create(:promotion, description: 'Natal da Loca')
 
+      user = User.create!(email: 'teste@teste.com', password: '123456')
+      login_as(user, scope: :user)
       visit root_path
       click_on 'Promoções'
       click_on 'Natal da Loca'
@@ -116,6 +128,8 @@ feature 'Promotion management' do
     scenario 'with all fields in blank' do
       promotion = create(:promotion)
 
+      user = User.create!(email: 'teste@teste.com', password: '123456')
+      login_as(user, scope: :user)
       visit edit_promotion_path(promotion)
       within 'form' do
         fill_in 'Descrição', with: ''
@@ -141,6 +155,7 @@ feature 'Promotion management' do
   context 'activate a promotion' do
     scenario 'successfully' do
       user = User.create!(email: 'teste@teste.com', password: '123456')
+
       create(:promotion, description: 'Natal da Loca',
                          status: :waiting_for_approval)
 

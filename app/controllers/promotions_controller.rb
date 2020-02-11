@@ -1,4 +1,5 @@
 class PromotionsController < ApplicationController
+  before_action :authenticate_user!
   def index
     @promotions = Promotion.all
   end
@@ -43,9 +44,11 @@ class PromotionsController < ApplicationController
 
   def generate_coupons
     @promotion = Promotion.find(params[:id])
-    @promotion.issued!
-    @promotion.generate_coupons
-    flash[:notice] = "Foram criados #{@promotion.max_usage} cupons"
+    if @promotion.approved?
+      @promotion.issued!
+      @promotion.generate_coupons
+      flash[:notice] = "Foram criados #{@promotion.max_usage} cupons"
+    end
     redirect_to @promotion
   end
 
