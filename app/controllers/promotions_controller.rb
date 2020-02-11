@@ -37,8 +37,10 @@ class PromotionsController < ApplicationController
 
   def approve
     @promotion = Promotion.find(params[:id])
-    @promotion.approved!
+    return redirect_to root_path, alert: 'Você não pode fazer essa ação'\
+      unless @promotion.user != current_user
 
+    @promotion.approved!
     redirect_to @promotion, notice: 'Promoção aprovada com sucesso'
   end
 
