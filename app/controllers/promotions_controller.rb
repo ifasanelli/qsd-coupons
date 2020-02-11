@@ -37,6 +37,7 @@ class PromotionsController < ApplicationController
   def approve
     @promotion = Promotion.find(params[:id])
     @promotion.approved!
+    record_approval()
     redirect_to @promotion, notice: 'Promoção aprovada com sucesso'
   end
 
@@ -57,6 +58,12 @@ class PromotionsController < ApplicationController
   end
 
   private
+
+  def record_approval
+    @promotion = Promotion.find(params[:id])
+    @user = current_user
+    @promotion_aproved = RecordApproval.create!(email: @user.email, date: Time.current.time, promotion_id:@promotion.id)
+  end
 
   def promotion_params
     params.require(:promotion).permit(:description, :prefix,

@@ -11,5 +11,6 @@ Rails.application.routes.draw do
     resources :coupons, only: %i[index create show] do
       get 'burn', on: :member, to: 'coupons#burn'
     end
+    resources :record_approvals, only: %i[index create show]
   end
 end

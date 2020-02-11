@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_28_194301) do
+ActiveRecord::Schema.define(version: 2020_02_11_121305) do
 
   create_table "coupons", force: :cascade do |t|
     t.string "code"
@@ -34,6 +34,15 @@ ActiveRecord::Schema.define(version: 2020_01_28_194301) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "record_approvals", force: :cascade do |t|
+    t.string "email"
+    t.datetime "date"
+    t.integer "promotion_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["promotion_id"], name: "index_record_approvals_on_promotion_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -47,4 +56,5 @@ ActiveRecord::Schema.define(version: 2020_01_28_194301) do
   end
 
   add_foreign_key "coupons", "promotions"
+  add_foreign_key "record_approvals", "promotions"
 end
