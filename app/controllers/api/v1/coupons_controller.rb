@@ -7,8 +7,18 @@ module Api
 
         return head :forbidden if @coupon.burned?
 
-        @coupon.burned!
-        render json: @coupon, status: :ok
+        burn_successfully
+      end
+
+      private
+
+      def burn_successfully
+        @coupon.register_coupon_usage(order_number: params[:order_number])
+        render json: {
+          code: @coupon.code, status: @coupon.status,
+          order_number: @coupon.burnt_coupon.order_number,
+          date: I18n.l(@coupon.burnt_coupon.date, format: :default)
+        }, status: :ok
       end
     end
   end
