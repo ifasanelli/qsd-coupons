@@ -12,5 +12,6 @@ class Coupon < ApplicationRecord
     return burnt_coupon unless burnt_coupon.save
 
     burned!
+    burnt_coupon
   end
 end

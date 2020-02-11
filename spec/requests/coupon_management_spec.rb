@@ -34,5 +34,15 @@ describe 'Coupon management' do
 
       expect(response).to have_http_status :forbidden
     end
+
+    it 'try to burn a coupon without enough parameters' do
+      promotion = create(:promotion)
+      create(:coupon,
+             code: 'NATAL0001', status: :created, promotion: promotion)
+
+      post '/api/v1/coupon/NATAL0001/burn'
+
+      expect(response).to have_http_status :precondition_failed
+    end
   end
 end

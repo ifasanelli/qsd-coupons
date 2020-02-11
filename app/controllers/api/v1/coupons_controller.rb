@@ -13,7 +13,10 @@ module Api
       private
 
       def burn_successfully
-        @coupon.register_coupon_usage(order_number: params[:order_number])
+        burnt_coupon = \
+          @coupon.register_coupon_usage(order_number: params[:order_number])
+        return head :precondition_failed unless burnt_coupon.valid?
+
         render json: {
           code: @coupon.code, status: @coupon.status,
           order_number: @coupon.burnt_coupon.order_number,

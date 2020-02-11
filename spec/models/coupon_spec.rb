@@ -7,7 +7,7 @@ describe Coupon do
 
       result = coupon.register_coupon_usage(order_number: '0E027A')
 
-      expect(result).to be_truthy
+      expect(result.valid?).to be_truthy
     end
 
     it 'and order_number must be present' do
