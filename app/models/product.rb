@@ -5,5 +5,4 @@ class Product
     @id = id
     @nome = name
   end
-
 end

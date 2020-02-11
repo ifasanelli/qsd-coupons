@@ -33,3 +33,6 @@ Layout/LineLength:
 
 Style/AsciiComments:
   Enabled: false
+
+Layout/EndOfLine:
+  EnforcedStyle: lf
