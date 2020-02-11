@@ -2,8 +2,9 @@ require 'rails_helper'
 
 feature 'User view all promotions' do
   scenario 'with more than one registered' do
-    create(:promotion, description: 'Natal da Loca')
-    create(:promotion, description: 'Páscoa da Loca')
+    user = create(:user, email: 'teste@gmail.com')
+    create(:promotion, description: 'Natal da Loca', user: user)
+    create(:promotion, description: 'Páscoa da Loca', user: user)
 
     visit root_path
     click_on 'Promoções'
