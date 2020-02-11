@@ -5,14 +5,23 @@
     <!-- Dropdown com detalhes da conta de usuário -->
     <div data-ls-module="dropdown" class="ls-dropdown ls-user-account">
       <a href="#" class="ls-ico-user">
-        <img src="/locawebstyle/assets/images/locastyle/avatar-example.jpg" alt="" />
-        <span class="ls-name">Usuário</span>
-        (username)
+        <% if user_signed_in? %>
+          <img src="/locawebstyle/assets/images/locastyle/avatar-example.jpg" alt="" />
+          <span class="ls-name">
+            <%= current_user.email %>
+          </span>
+        <% else %>
+          Visitante
+        <% end %>
       </a>
 
       <nav class="ls-dropdown-nav ls-user-menu">
         <ul>
-          <li><a href="#">Sair</a></li>
+          <% if user_signed_in? %>
+            <li><%= link_to 'Sair', destroy_user_session_url %></li>
+          <% else %>
+            <li><%= link_to 'Entrar', new_user_session_url %></li>
+          <% end %>
         </ul>
       </nav>
     </div>

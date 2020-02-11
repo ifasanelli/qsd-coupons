@@ -14,6 +14,9 @@ Rails.application.routes.draw do
       resources :coupons, only: %i[index show create update destroy] do
         get 'confer', on: :collection
       end
+      resource :coupon, only: [] do
+        post ':code/burn', to: 'coupons#burn'
+      end
     end
   end
 end

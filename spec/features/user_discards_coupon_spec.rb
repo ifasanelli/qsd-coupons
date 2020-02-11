@@ -4,7 +4,7 @@ feature 'User discards coupon' do
   scenario 'successfully' do
     user = User.create!(email: 'teste@teste.com', password: '123456')
 
-    promotion = create(:promotion, status: :approved)
+    promotion = create(:promotion, status: :approved, user: user)
 
     login_as(user, scope: :user)
     visit promotion_path(promotion)
