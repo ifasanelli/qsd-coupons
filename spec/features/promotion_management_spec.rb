@@ -140,9 +140,11 @@ feature 'Promotion management' do
 
   context 'activate a promotion' do
     scenario 'successfully' do
+      user = User.create!(email: 'teste@teste.com', password: '123456')
       create(:promotion, description: 'Natal da Loca',
                          status: :waiting_for_approval)
 
+      login_as(user, scope: :user)
       visit root_path
       click_on 'Promoções'
       click_on 'Natal da Loca'

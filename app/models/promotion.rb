@@ -37,7 +37,6 @@ class Promotion < ApplicationRecord
     coupons.create!(code: code, status: 0)
   end
 
-
   def discard_coupons
     coupons.status = 1
   end
