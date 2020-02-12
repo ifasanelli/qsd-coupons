@@ -74,7 +74,6 @@ class PromotionsController < ApplicationController
   def record_approval
     @promotion = Promotion.find(params[:id])
     @user = current_user
-    
   end
 
   def fill_promotion_fields

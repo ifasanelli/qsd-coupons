@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_11_120305) do
+ActiveRecord::Schema.define(version: 2020_02_11_121305) do
 
   create_table "burnt_coupons", force: :cascade do |t|
     t.string "order_number"
@@ -72,4 +72,5 @@ ActiveRecord::Schema.define(version: 2020_02_11_120305) do
   add_foreign_key "burnt_coupons", "coupons"
   add_foreign_key "coupons", "promotions"
   add_foreign_key "promotions", "users"
+  add_foreign_key "record_approvals", "promotions"
 end
