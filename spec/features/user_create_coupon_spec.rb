@@ -10,10 +10,9 @@ feature 'User create coupon' do
     click_on 'Emitir cupons'
 
     cupons = promotion.coupons.count
-    promotion.reload
-    expect(cupons).to eq(promotion.max_usage)
-    expect(promotion).to be_issued
-    expect(page).to have_content("Foram criados #{promotion.max_usage} cupons")
+    expect(cupons).to eq(33)
+    expect(promotion.reload.status).to eq 'issued'
+    expect(page).to have_content('Foram criados 33 cupons')
   end
 
   scenario '(promotion needs to be approved to show button)' do

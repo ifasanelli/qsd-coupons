@@ -56,8 +56,6 @@
   </div>
   </div>
 
-<%= link_to 'Editar', edit_promotion_path(@promotion) %>
-
 <div class="ls-box ls-board-box">
   <header class="ls-info-header">
     <h2 class="ls-title-3 col-md-6 ls-ico-text">
@@ -65,7 +63,7 @@
     </h2>
 
     <div class="ls-actions-btn ls-float-right">
-      <% unless @promotion.approved? %>
+      <% unless @promotion.approved? || @promotion.issued? %>
         <% unless @promotion.user == current_user%>
           <%= form_tag(approve_promotion_path(@promotion), method: :post) do %>
             <%= submit_tag 'Aprovar', class: 'ls-btn-primary' %>
@@ -77,7 +75,7 @@
 
   <div>
     <% if @promotion.approved? %>
-      <%= form_tag(promotion_coupons_path(@promotion), method: :post) do %>
+      <%= form_tag(generate_coupons_promotion_path(@promotion), method: :post) do %>
             <%= submit_tag 'Emitir cupons', class: 'ls-btn-primary' %>
       <% end %>
     <% elsif @promotion.issued? %>
@@ -95,9 +93,3 @@
     <% end %>
   </div>
 </div>
-
-<% if @promotion.issued? %>
-<% @coupons.available.each do |coupon| %>
-    <%= link_to coupon.code, promotion_coupon_path(coupon.id)  %>
-<% end %>
-<% end %>

@@ -7,7 +7,7 @@ class PromotionsController < ApplicationController
 
   def show
     @promotion = Promotion.find(params[:id])
-    @coupons = @promotion.coupons
+    @coupons = @promotion.coupons.where(status: :available)
   end
 
   def new
@@ -62,20 +62,7 @@ class PromotionsController < ApplicationController
     redirect_to @promotion
   end
 
-  def generate_singles
-    @promotion = Promotion.find(params[:id])
-    @promotion.issued!
-    @promotion.generate_single
-    flash[:notice] = 'Foi criado mais 1 cupom'
-    redirect_to @promotion
-  end
-
   private
-
-  def record_approval
-    @promotion = Promotion.find(params[:id])
-    @user = current_user
-  end
 
   def fill_promotion_fields
     @promotion.user = current_user
