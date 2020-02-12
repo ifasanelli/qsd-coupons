@@ -2,10 +2,12 @@ require 'rails_helper'
 
 feature 'User edits a promotion' do
   scenario 'successfully' do
+    user = create(:user, email: 'teste@gmail.com')
     products = [Product.new(1, 'HOSP'), Product.new(2, 'CLOUD')]
     allow(Product).to receive(:all).and_return(products)
     create(:promotion, description: 'Natal da Loca')
 
+    login_as(user, scope: :user)
     visit root_path
     click_on 'Promoções'
     click_on 'Natal da Loca'
@@ -33,10 +35,12 @@ feature 'User edits a promotion' do
     expect(page).to have_content(10)
   end
   scenario 'with all fields in blank' do
+    user = create(:user, email: 'teste@gmail.com')
     products = [Product.new(1, 'HOSP'), Product.new(2, 'CLOUD')]
     allow(Product).to receive(:all).and_return(products)
     promotion = create(:promotion)
 
+    login_as(user, scope: :user)
     visit edit_promotion_path(promotion)
     within 'form' do
       fill_in 'Descrição', with: ''
