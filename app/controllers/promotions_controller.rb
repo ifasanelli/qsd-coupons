@@ -16,6 +16,9 @@ class PromotionsController < ApplicationController
   def create
     @promotion = Promotion.new(promotion_params)
     @promotion.user = current_user
+    if promotion_params.present?
+      @promotion.product_key = Product.find(promotion_params[:product_id].to_i).key
+    end
     if @promotion.save
       redirect_to @promotion, notice: 'Promoção registrada com sucesso'
     else
@@ -54,6 +57,6 @@ class PromotionsController < ApplicationController
     params.require(:promotion).permit(:description, :prefix,
                                       :discount_percentage, :max_discount_value,
                                       :start_date, :end_date, :max_usage,
-                                      :product_key)
+                                      :product_id)
   end
 end

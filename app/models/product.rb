@@ -29,4 +29,8 @@ class Product
       Product.new(item[:id], item[:product_key])
     end
   end
+
+  def self.find(id)
+    @product = all.detect { |product| product.id == id }
+  end
 end
