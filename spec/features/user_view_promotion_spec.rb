@@ -6,6 +6,7 @@ feature 'User view all promotions' do
     create(:promotion, description: 'Natal da Loca', user: user)
     create(:promotion, description: 'Páscoa da Loca', user: user)
 
+    login_as(user, scope: :user)
     visit root_path
     click_on 'Promoções'
 
@@ -17,6 +18,9 @@ feature 'User view all promotions' do
     expect(page).to have_content '10.0%'
   end
   scenario 'with non-existing promotions' do
+    user = create(:user, email: 'teste@gmail.com')
+
+    login_as(user, scope: :user)
     visit promotions_path
 
     expect(page).to have_content 'Nenhuma promoção registrada'
@@ -25,8 +29,10 @@ end
 
 context 'sees one promotion' do
   scenario 'successfully' do
+    user = create(:user, email: 'teste@gmail.com')
     create(:promotion, description: 'Natal da Loca')
 
+    login_as(user, scope: :user)
     visit root_path
     click_on 'Promoções'
     click_on 'Natal da Loca'

@@ -18,7 +18,7 @@
       <nav class="ls-dropdown-nav ls-user-menu">
         <ul>
           <% if user_signed_in? %>
-            <li><%= link_to 'Sair', destroy_user_session_url %></li>
+            <li><%= link_to 'Sair', destroy_user_session_url, method: :delete %></li>
           <% else %>
             <li><%= link_to 'Entrar', new_user_session_url %></li>
           <% end %>
