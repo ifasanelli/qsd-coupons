@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'User burns coupon' do
+feature 'User discard coupon' do
   scenario 'successfully' do
     user = User.create!(email: 'teste@teste.com', password: '123456')
 
@@ -15,7 +15,7 @@ feature 'User burns coupon' do
     expect(page).to_not have_content('NATAL0001')
     expect(current_path).to eq(promotion_path(promotion))
   end
-  scenario 'and cannot burn it again' do
+  scenario 'and cannot discard it again' do
     user = User.create!(email: 'teste@teste.com', password: '123456')
     promotion = create(:promotion, status: :approved)
     coupon = create(:coupon, promotion_id: promotion.id)

@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     post 'generate_coupons', on: :member, to: 'promotions#generate_coupons'
     post 'generate_singles', on: :member, to: 'promotions#generate_singles'
     resources :coupons, only: %i[index create show] do
-      get 'burn', on: :member, to: 'coupons#burn'
+      get 'discard', on: :member, to: 'coupons#discard'
     end
     resources :record_approvals, only: %i[index create show]
   end

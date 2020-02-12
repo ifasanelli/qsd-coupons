@@ -7,7 +7,7 @@ class CouponsController < ApplicationController
     redirect_to promotion_path(@promotion) if @coupon.unavailable?
   end
 
-  def burn
+  def discard
     @promotion = Promotion.find(params[:promotion_id])
     @coupon = Coupon.find(params[:id])
     @coupon.unavailable!
