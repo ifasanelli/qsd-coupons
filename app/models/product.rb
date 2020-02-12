@@ -19,6 +19,7 @@ class Product
 
   def self.all
     request_url = "#{product_url}/product_types"
+
     response = Faraday.get(request_url)
     return [] if response.status == 500
 

@@ -54,6 +54,6 @@ class PromotionsController < ApplicationController
     params.require(:promotion).permit(:description, :prefix,
                                       :discount_percentage, :max_discount_value,
                                       :start_date, :end_date, :max_usage,
-                                      :product_type)
+                                      :product_key)
   end
 end
