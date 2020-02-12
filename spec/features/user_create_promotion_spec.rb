@@ -4,7 +4,7 @@ feature 'User create a promotion' do
   scenario 'successfully' do
     products = [Product.new(1, 'HOSP'), Product.new(2, 'CLOUD')]
     allow(Product).to receive(:all).and_return(products)
-    user = create(:user)
+    user = create(:user, email: 'teste@gmail.com')
 
     login_as(user, scope: :user)
     visit root_path

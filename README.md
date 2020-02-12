@@ -55,12 +55,12 @@ http://localhost/api/v1/coupon/:code/burn
 
 ### Cupom existente
 - <b>Cabeçalho:</b> HTTP 200 (OK)
-- <b>Corpo:</b> Objeto `Coupon` com seu novo estado, `burned`
+- <b>Corpo:</b> Objeto `Coupon` com seu novo estado, `burnt`
 
 ```json
 {
   "id":1,
-  "status":"burned",
+  "status":"burnt",
   "promotion_id":1,
   "code":"NATAL0001",
   "created_at":"2020-02-10T19:27:40.009Z",

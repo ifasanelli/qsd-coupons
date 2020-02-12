@@ -19,6 +19,7 @@ class Product
 
   def self.all
     request_url = "#{product_url}/product_types"
+
     response = Faraday.get(request_url)
     return [] if response.status == 500
 
@@ -27,5 +28,9 @@ class Product
     json.map do |item|
       Product.new(item[:id], item[:product_key])
     end
+  end
+
+  def self.find(id)
+    @product = all.detect { |product| product.id == id }
   end
 end

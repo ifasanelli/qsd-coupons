@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_11_165705) do
+ActiveRecord::Schema.define(version: 2020_02_11_120305) do
 
   create_table "burnt_coupons", force: :cascade do |t|
     t.string "order_number"
@@ -44,7 +44,6 @@ ActiveRecord::Schema.define(version: 2020_02_11_165705) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "product_id"
     t.string "product_key"
-    t.string "product_type"
     t.integer "user_id"
     t.index ["user_id"], name: "index_promotions_on_user_id"
   end
