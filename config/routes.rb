@@ -7,11 +7,22 @@ Rails.application.routes.draw do
   resources :promotions, only: %i[index show new create edit update] do
     post 'approve', on: :member, to: 'promotions#approve'
     post 'generate_coupons', on: :member, to: 'promotions#generate_coupons'
-    post 'generate_singles', on: :member, to: 'promotions#generate_singles'
     resources :coupons, only: %i[index create show] do
       get 'discard', on: :member, to: 'coupons#discard'
     end
     resources :record_approvals, only: %i[index create show]
+    resources :coupons, only: %i[create show destroy]
   end
   resources :record_approvals, only: %i[index]
+
+  namespace :api do
+    namespace :v1 do
+      resources :coupons, only: %i[index show create update destroy] do
+        get 'confer', on: :collection
+      end
+      resource :coupon, only: [] do
+        post ':code/burn', to: 'coupons#burn'
+      end
+    end
+  end
 end

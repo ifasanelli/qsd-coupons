@@ -1,0 +1,13 @@
+---
+pt-BR:
+  activerecord:
+    models:
+      burnt_coupon:
+        one: 'Cupom queimado'
+        other: 'Cupons queimados'
+    attributes:
+      burnt_coupon:
+        order_number: 'Número do pedido'
+        cupon_id: 'Cupom'
+        date: 'Data e hora'
+        code: 'Código'

@@ -11,18 +11,22 @@ class PromotionsController < ApplicationController
 
   def new
     @promotion = Promotion.new
+    @products = Product.all
   end
 
   def create
     @promotion = Promotion.new(promotion_params)
+    fill_promotion_fields
     if @promotion.save
       redirect_to @promotion, notice: 'Promoção registrada com sucesso'
     else
+      @products = Product.all
       render :new
     end
   end
 
   def edit
+    @products = Product.all
     @promotion = Promotion.find(params[:id])
   end
 
@@ -31,14 +35,19 @@ class PromotionsController < ApplicationController
     if @promotion.update(promotion_params)
       redirect_to @promotion, notice: 'Promoção editada com sucesso'
     else
+      @products = Product.all
       render :edit
     end
   end
 
   def approve
     @promotion = Promotion.find(params[:id])
+    return redirect_to root_path, alert: 'Você não pode fazer essa ação'\
+      unless @promotion.user != current_user
+
     @promotion.approved!
-    record_approval
+    @promotion.create_record_approval(email: current_user.email,
+                                      date: Time.zone.now)
     redirect_to @promotion, notice: 'Promoção aprovada com sucesso'
   end
 
@@ -65,14 +74,22 @@ class PromotionsController < ApplicationController
   def record_approval
     @promotion = Promotion.find(params[:id])
     @user = current_user
-    @promotion_aproved = RecordApproval.create!(email: @user.email,
-                                                date: Time.current.time,
-                                                promotion_id: @promotion.id)
+    
+  end
+
+  def fill_promotion_fields
+    @promotion.user = current_user
+
+    return if promotion_params.blank?
+
+    @promotion.product_key = \
+      Product.find(promotion_params[:product_id].to_i).key\
   end
 
   def promotion_params
     params.require(:promotion).permit(:description, :prefix,
                                       :discount_percentage, :max_discount_value,
-                                      :start_date, :end_date, :max_usage)
+                                      :start_date, :end_date, :max_usage,
+                                      :product_id)
   end
 end

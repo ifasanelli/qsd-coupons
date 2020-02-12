@@ -1,67 +1,100 @@
-
-<h1 class="ls-title-intro ls-ico-dashboard">
+<h1 class="ls-title-intro ls-ico-bullhorn">
   Promoção
 </h1>
 
-<div>
-  <p><strong>Descrição:</strong></p>
-  <p><%= @promotion.description %></p>
+<div class="ls-box">
+  <div class="ls-float-right ls-regroup">
+    <%= link_to 'Editar', edit_promotion_path(@promotion), class: 'ls-btn-primary' %>
+  </div>
+
+  <div class="ls-label">
+    <p><strong><%= Promotion.human_attribute_name(:description) %>:</strong></p>
+    <p><%= @promotion.description %></p>
+  </div>
+
+  <div class="ls-label">
+    <p><strong><%= Promotion.human_attribute_name(:status) %>:</strong></p>
+    <p><%= @promotion.status %></p>
+  </div>
+
+  <div class="ls-label">
+    <p><strong><%= Promotion.human_attribute_name(:prefix) %>:</strong></p>
+    <p><%= @promotion.prefix %></p>
+  </div>
+
+  <div class="ls-label">
+    <p><strong><%= Promotion.human_attribute_name(:discount_percentage) %>:
+    </strong></p>
+    <p><%= @promotion.discount_percentage %>%</p>
+  </div>
+
+  <div class="ls-label">
+    <p><strong><%= Promotion.human_attribute_name(:max_discount_value) %>:
+    </strong></p>
+    <p><%= number_to_currency(@promotion.max_discount_value) %></p>
+  </div>
+
+  <div class="ls-label">
+    <p><strong><%= Promotion.human_attribute_name(:start_date) %>:</strong></p>
+    <p><%= I18n.l( @promotion.start_date, formats: :default) %></p>
+  </div>
+
+  <div class="ls-label">
+    <p><strong><%= Promotion.human_attribute_name(:end_date) %>:</strong></p>
+    <p><%= I18n.l( @promotion.end_date, formats: :default) %></p>
+  </div>
+
+  <div class="ls-label">
+    <p><strong><%= Promotion.human_attribute_name(:max_usage) %>:</strong></p>
+    <p><%= @promotion.max_usage %></p>
+  </div>
 </div>
 
-<div>
-  <p><strong>Status da promoção:</strong></p>
-  <p><%= @promotion.status %></p>
-</div>
-
-<div>
-  <p><strong>Prefixo:</strong></p>
-  <p><%= @promotion.prefix %></p>
-</div>
-
-<div>
-  <p><strong>Porcentagem de desconto:</strong></p>
-  <p><%= @promotion.discount_percentage %>%</p>
-</div>
-
-<div>
-  <p><strong>Valor máximo de desconto:</strong></p>
-  <p><%= @promotion.max_discount_value %></p>
-</div>
-
-<div>
-  <p><strong>Data de início:</strong></p>
-  <p><%= @promotion.start_date.strftime('%d/%m/%Y') %></p>
-</div>
-
-<div>
-  <p><strong>Data de fim:</strong></p>
-  <p><%= @promotion.end_date.strftime('%d/%m/%Y') %></p>
-</div>
-
-<div>
-  <p><strong>Uso máximo:</strong></p>
-  <p><%= @promotion.max_usage %></p>
-</div>
-
-<%= form_tag(approve_promotion_path(@promotion), method: :post) do %>
-  <%= submit_tag 'Aprovar', class: 'ls-btn-primary' %>
-<% end %>
+  <div class="ls-label">
+    <p><strong><%= Promotion.human_attribute_name(:product_id) %>:</strong></p>
+    <p><%= @promotion.product_key %></p>
+  </div>
+  </div>
 
 <%= link_to 'Editar', edit_promotion_path(@promotion) %>
 
-<% if @promotion.approved? %>
-<%= form_tag(generate_coupons_promotion_path(@promotion), method: :post) do %>
-  <%= submit_tag 'Emitir cupons', class: 'ls-btn-primary' %>
-<% end %>
-<% end %>
-<% if @promotion.issued? %>
-<%= form_tag(generate_singles_promotion_path(@promotion), method: :post) do %>
-  <%= submit_tag 'Emitir cupons', class: 'ls-btn-primary' %>
-<% end %>
+<div class="ls-box ls-board-box">
+  <header class="ls-info-header">
+    <h2 class="ls-title-3 col-md-6 ls-ico-text">
+      Cupons desta promoção
+    </h2>
 
-<% else %>
-  <p> Promoção aguardando aprovação  </p>
-<%end%>
+    <div class="ls-actions-btn ls-float-right">
+      <% unless @promotion.approved? %>
+        <% unless @promotion.user == current_user%>
+          <%= form_tag(approve_promotion_path(@promotion), method: :post) do %>
+            <%= submit_tag 'Aprovar', class: 'ls-btn-primary' %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </header>
+
+  <div>
+    <% if @promotion.approved? %>
+      <%= form_tag(promotion_coupons_path(@promotion), method: :post) do %>
+            <%= submit_tag 'Emitir cupons', class: 'ls-btn-primary' %>
+      <% end %>
+    <% elsif @promotion.issued? %>
+      <table class="ls-table">
+        <tbody>
+        <% @coupons.each do |coupon| %>
+          <tr>
+            <td><%= link_to coupon.code, promotion_coupon_path(coupon.id) %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p>Promoção aguardando aprovação</p>
+    <% end %>
+  </div>
+</div>
 
 <% if @promotion.issued? %>
 <% @coupons.available.each do |coupon| %>

@@ -3,15 +3,14 @@ require 'rails_helper'
 feature 'User create coupon' do
   scenario 'successfully' do
     user = User.create!(email: 'teste@teste.com', password: '123456')
-    promotion = create(:promotion, status: :approved)
+    promotion = create(:promotion, status: :approved, user: user, max_usage: 33)
 
     login_as(user, scope: :user)
     visit promotion_path(promotion)
     click_on 'Emitir cupons'
 
-    cupons = Coupon.count
+    cupons = promotion.coupons.count
     promotion.reload
-
     expect(cupons).to eq(promotion.max_usage)
     expect(promotion).to be_issued
     expect(page).to have_content("Foram criados #{promotion.max_usage} cupons")
@@ -19,7 +18,7 @@ feature 'User create coupon' do
 
   scenario '(promotion needs to be approved to show button)' do
     user = User.create!(email: 'teste@teste.com', password: '123456')
-    promotion = create(:promotion, status: :waiting_for_approval)
+    promotion = create(:promotion, status: :waiting_for_approval, user: user)
 
     login_as(user, scope: :user)
     visit promotion_path(promotion)
@@ -30,7 +29,7 @@ feature 'User create coupon' do
 
   scenario '(promotion must be approved to issue coupons by url)' do
     user = User.create!(email: 'teste@teste.com', password: '123456')
-    promotion = create(:promotion, status: :waiting_for_approval)
+    promotion = create(:promotion, status: :waiting_for_approval, user: user)
 
     login_as(user, scope: :user)
     page.driver.submit :post, generate_coupons_promotion_path(promotion),

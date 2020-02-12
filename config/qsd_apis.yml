@@ -1,0 +1,6 @@
+test:
+  product_url: 'http://localhost:3000'
+development:
+  product_url: 'http://0.0.0.0:3000'
+production:
+  product_url: 'http://0.0.0.0:3000'
