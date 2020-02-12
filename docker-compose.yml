@@ -1,0 +1,24 @@
+version: '3'
+services:
+  web:
+    build: .
+    command: bundle exec rails s -b 0.0.0.0
+    container_name: qsd_coupon
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/qsd_coupon
+    depends_on:
+      - db
+    env_file:
+      - .env.docker
+  db:
+    image: postgres:11.2-alpine
+    ports:
+      - 5432:5432
+    env_file:
+      .env.docker
+    volumes:
+      - qsd_coupon-data:/var/lib/postgresql/data
+volumes:
+  qsd_coupon-data:
