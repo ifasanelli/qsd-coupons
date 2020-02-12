@@ -3,13 +3,13 @@ require 'rails_helper'
 feature 'User create coupon' do
   scenario 'successfully' do
     user = User.create!(email: 'teste@teste.com', password: '123456')
-    promotion = create(:promotion, status: :approved, user: user)
+    promotion = create(:promotion, status: :approved, user: user, max_usage: 33)
 
     login_as(user, scope: :user)
     visit promotion_path(promotion)
     click_on 'Emitir cupons'
 
-    cupons = Coupon.count
+    cupons = promotion.coupons.count
     expect(cupons).to eq(promotion.max_usage)
     expect(page).to have_content("Foram criados #{promotion.max_usage} cupons")
   end

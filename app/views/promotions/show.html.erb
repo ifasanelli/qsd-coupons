@@ -75,7 +75,9 @@
 
   <div>
     <% if @promotion.approved? %>
-      <%= link_to 'Emitir cupons', promotion_coupons_path(@promotion), method: :post, class: 'ls-btn-primary' if @promotion.approved? %>
+      <%= form_tag(promotion_coupons_path(@promotion), method: :post) do %>
+            <%= submit_tag 'Emitir cupons', class: 'ls-btn-primary' %>
+      <% end %>
     <% elsif @promotion.issued? %>
       <table class="ls-table">
         <tbody>
