@@ -15,10 +15,7 @@ class PromotionsController < ApplicationController
 
   def create
     @promotion = Promotion.new(promotion_params)
-    @promotion.user = current_user
-    if promotion_params.present?
-      @promotion.product_key = Product.find(promotion_params[:product_id].to_i).key
-    end
+    fill_promotion_fields
     if @promotion.save
       redirect_to @promotion, notice: 'Promoção registrada com sucesso'
     else
@@ -52,6 +49,15 @@ class PromotionsController < ApplicationController
   end
 
   private
+
+  def fill_promotion_fields
+    @promotion.user = current_user
+
+    return if promotion_params.blank?
+
+    @promotion.product_key = \
+      Product.find(promotion_params[:product_id].to_i).key\
+  end
 
   def promotion_params
     params.require(:promotion).permit(:description, :prefix,
