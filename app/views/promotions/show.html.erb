@@ -14,7 +14,7 @@
 
   <div class="ls-label">
     <p><strong><%= Promotion.human_attribute_name(:status) %>:</strong></p>
-    <p><%= @promotion.status %></p>
+    <p><%= @promotion.status.humanize %></p>
   </div>
 
   <div class="ls-label">
@@ -25,7 +25,7 @@
   <div class="ls-label">
     <p><strong><%= Promotion.human_attribute_name(:discount_percentage) %>:
     </strong></p>
-    <p><%= @promotion.discount_percentage %>%</p>
+    <p><%= number_to_percentage(@promotion.discount_percentage, precision: 1) %></p>
   </div>
 
   <div class="ls-label">
@@ -48,13 +48,12 @@
     <p><strong><%= Promotion.human_attribute_name(:max_usage) %>:</strong></p>
     <p><%= @promotion.max_usage %></p>
   </div>
-</div>
 
   <div class="ls-label">
     <p><strong><%= Promotion.human_attribute_name(:product_id) %>:</strong></p>
     <p><%= @promotion.product_key %></p>
   </div>
-  </div>
+</div>
 
 <div class="ls-box ls-board-box">
   <header class="ls-info-header">

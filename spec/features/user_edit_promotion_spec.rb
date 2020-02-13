@@ -28,7 +28,7 @@ feature 'User edits a promotion' do
     expect(page).to have_content('Promoção editada com sucesso')
     expect(page).to have_content('Páscoa da Locaweb com você')
     expect(page).to have_content('PASCOA')
-    expect(page).to have_content('10.0%')
+    expect(page).to have_content('10,0%')
     expect(page).to have_content(20)
     expect(page).to have_content(Date.current.strftime('%d/%m/%Y'))
     expect(page).to have_content(1.day.from_now.strftime('%d/%m/%Y'))
