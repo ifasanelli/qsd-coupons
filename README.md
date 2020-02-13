@@ -1,15 +1,22 @@
 # QSD - Cupons
 Microserviço de gerenciamento de promoções e cupons para o projeto <b>Quero Ser 
 Dev</b> da Locaweb. Consiste em um painel de gerenciamento e uma API REST para
-comunicação com os sistemas de Vendas e Produtos.
+comunicação com os sistemas de `Vendas` e `Produtos`.
 
 ---
 ## Índice
-- [1. Consulta de cupom](#consulta_cupom)
-- [2. Uso / queima de cupons](#queima_cupons)
+- [1. Descritivo do painel de gerenciamento](#descritivo)
+- [2. Consulta de cupom](#consulta_cupom)
+- [3. Uso / queima de cupons](#queima_cupons)
+
+---
+## <a name="descritivo"></a>1. Descritivo do painel de gerenciamento
+O sistema de `Cupons` provê uma interface gráfica web adequada para que o setor de marketing possa criar `Promoções` e dentro delas, gerenciar `Cupons`.
+O visual é baseado no tema Locastyle, oficial da Locaweb e que pode ser explorado a fundo no link a seguir: [Locastyle](https://github.com/locaweb/locawebstyle/).
+
 ---
 
-## <a name="queima_cupons"></a>1. Consulta de cupom (GET)
+## <a name="queima_cupons"></a>2. Consulta de cupom (GET)
 ```
 http://localhost/api/v1/coupons/confer?coupon=:coupon&price=:price&product=:product_id
 ```
@@ -30,6 +37,7 @@ http://localhost/api/v1/coupons/confer?coupon=:coupon&price=:price&product=:prod
 ### Cupom inexistente
 - <b>Cabeçalho:</b> HTTP 404 (Not Found)
 - <b>Corpo:</b> Descrição do erro
+
 ```json
 {
   "error": "Cupom inexistente"
@@ -39,6 +47,7 @@ http://localhost/api/v1/coupons/confer?coupon=:coupon&price=:price&product=:prod
 ### Cupom não pertence ao produto especificado
 - <b>Cabeçalho:</b> HTTP 422 (Unprocessable Entity)
 - <b>Corpo:</b> Descrição do erro
+
 ```json
 {
   "error": "Cupom inválido para o produto especificado"
@@ -47,7 +56,7 @@ http://localhost/api/v1/coupons/confer?coupon=:coupon&price=:price&product=:prod
 
 ---
 
-## <a name="queima_cupons"></a>2. Uso / queima de cupons (POST)
+## <a name="queima_cupons"></a>3. Uso / queima de cupons (POST)
 ```
 http://localhost/api/v1/coupon/:code/burn
 ```
