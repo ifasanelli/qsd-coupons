@@ -37,9 +37,9 @@ feature 'User create a promotion' do
   scenario 'with all fields in blank' do
     user = User.create!(email: 'teste@teste.com', password: '123456')
     products = [Product.new(1, 'HOSP'), Product.new(2, 'CLOUD')]
+    allow(Product).to receive(:all).and_return(products)
 
     login_as(user, scope: :user)
-    allow(Product).to receive(:all).and_return(products)
     visit new_promotion_path
     click_on 'Enviar'
 

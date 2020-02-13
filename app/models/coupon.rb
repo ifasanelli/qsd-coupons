@@ -1,6 +1,7 @@
 class Coupon < ApplicationRecord
   enum status: { available: 0, burnt: 5, discarded: 10 }
   belongs_to :promotion
+
   has_one :burnt_coupon, dependent: :destroy
 
   def confer?(product_id)

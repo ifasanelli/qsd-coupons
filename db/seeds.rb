@@ -9,9 +9,10 @@ promo_user = User.create!(email: 'promo_creator@gmail.com', password: '123456')
 
 Promotion.create!([
   { 
-    description: 'Natal da Loca', prefix: 'NATAL', discount_percentage: 10.0, 
-    max_discount_value: 50, start_date: 1.day.from_now,
-    end_date: 2.days.from_now, max_usage: 10, status: :issued, user: promo_user
+    description: 'Ação de Graças da LOCA', prefix: 'ACAO',
+    discount_percentage: 10.0, max_discount_value: 50,
+    start_date: 1.day.from_now, end_date: 2.days.from_now, max_usage: 10,
+    status: :issued, user: promo_user
   },
   { 
     description: 'Páscoa da Loca', prefix: 'PASCOA', discount_percentage: 20.0, 
@@ -21,8 +22,8 @@ Promotion.create!([
 ])
 
 Coupon.create!([
-  { code: 'NATAL0001', promotion_id: 1, status: 0 },
-  { code: 'NATAL0002', promotion_id: 1, status: 0 }
+  { code: 'ACAO0001', promotion_id: 1, status: 0 },
+  { code: 'ACAO0002', promotion_id: 1, status: 0 }
 ])
 
 User.create!([

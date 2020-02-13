@@ -4,7 +4,7 @@
 
 <div class="ls-box">
   <div class="ls-float-right ls-regroup">
-    <%= link_to 'Deletar cupom', promotion_coupon_path(@coupon), method: :delete, class: 'ls-btn-primary' %>
+    <%= link_to 'Deletar cupom', discard_promotion_coupon_path(@promotion, @coupon), class: 'las-btn-primary' %>
   </div>
 
   <div class="ls-label">
@@ -17,5 +17,3 @@
     <p><%= @coupon.status.humanize %></p>
   </div>
 </div>
-
-
