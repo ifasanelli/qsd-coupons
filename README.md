@@ -62,6 +62,17 @@ http://localhost/api/v1/coupon/:code/burn
 ```
 - `code` é o código do cupom. Ex.: `NATAL0001`
 
+### Corpo da requisição
+
+```json
+{
+  "order_number": ":order_number",
+  "date": ":date"
+}
+```
+- `order_number` é o número da ordem responsável por usar o cupom. Ex.: `5E2357`
+- `date` é o valor do uso do cupom. Ex.: `2020-03-12`
+
 ### Cupom existente
 - <b>Cabeçalho:</b> HTTP 200 (OK)
 - <b>Corpo:</b> Objeto `Coupon` com seu novo estado, `burnt`
