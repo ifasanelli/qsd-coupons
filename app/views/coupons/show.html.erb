@@ -1,5 +1,19 @@
-<%= @coupon.code %>
-<%= @coupon.status %>
+<h1 class="ls-title-intro ls-ico-text">
+  Cupom
+</h1>
 
+<div class="ls-box">
+  <div class="ls-float-right ls-regroup">
+    <%= link_to 'Deletar cupom', discard_promotion_coupon_path(@promotion, @coupon), class: 'las-btn-primary' %>
+  </div>
 
-<%= link_to 'Deletar cupom', discard_promotion_coupon_path(@promotion, @coupon) %>
+  <div class="ls-label">
+    <p><strong><%= Coupon.human_attribute_name(:code) %>:</strong></p>
+    <p><%= @coupon.code %></p>
+  </div>
+
+  <div class="ls-label">
+    <p><strong><%= Coupon.human_attribute_name(:status) %>:</strong></p>
+    <p><%= @coupon.status.humanize %></p>
+  </div>
+</div>

@@ -12,7 +12,7 @@
       <th>Descrição</th>
       <th>Prefixo</th>
       <th>Desconto</th>
-      <th>Período</th>
+      <th>Uso máximo</th>
     </tr>
   </thead>
   <tbody>
@@ -20,7 +20,7 @@
     <tr>
       <td><%= link_to promotion.description, promotion_path(promotion) %></td>
       <td><%= promotion.prefix %></td>
-      <td><%= promotion.discount_percentage %>%</td>
+      <td><%= number_to_percentage(promotion.discount_percentage, precision: 1) %></td>
       <td><%= promotion.max_usage %></td>
     </tr>
   <% end %>

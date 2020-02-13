@@ -14,8 +14,8 @@ feature 'User view all promotions' do
     expect(page).to have_content 'Natal da Loca'
     expect(page).to have_content 'Páscoa da Loca'
     expect(page).to have_content 'NATAL'
-    expect(page).to have_content '10.0'
-    expect(page).to have_content '10.0%'
+    expect(page).to have_content '10,0%'
+    expect(page).to have_content '10'
   end
   scenario 'with non-existing promotions' do
     user = create(:user, email: 'teste@gmail.com')
@@ -39,7 +39,7 @@ context 'sees one promotion' do
 
     expect(page).to have_content('Natal da Loca')
     expect(page).to have_content('NATAL')
-    expect(page).to have_content('10.0%')
+    expect(page).to have_content('10,0%')
     expect(page).to have_content(50)
     expect(page).to have_content(Date.current.strftime('%d/%m/%Y'))
     expect(page).to have_content(1.day.from_now.strftime('%d/%m/%Y'))
