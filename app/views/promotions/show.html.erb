@@ -63,7 +63,7 @@
     </h2>
 
     <div class="ls-actions-btn ls-float-right">
-      <% unless @promotion.approved? %>
+      <% unless @promotion.approved? || @promotion.issued? %>
         <% unless @promotion.user == current_user%>
           <%= form_tag(approve_promotion_path(@promotion), method: :post) do %>
             <%= submit_tag 'Aprovar', class: 'ls-btn-primary' %>
@@ -75,7 +75,7 @@
 
   <div>
     <% if @promotion.approved? %>
-      <%= form_tag(promotion_coupons_path(@promotion), method: :post) do %>
+      <%= form_tag(generate_coupons_promotion_path(@promotion), method: :post) do %>
             <%= submit_tag 'Emitir cupons', class: 'ls-btn-primary' %>
       <% end %>
     <% elsif @promotion.issued? %>
@@ -93,4 +93,3 @@
     <% end %>
   </div>
 </div>
-

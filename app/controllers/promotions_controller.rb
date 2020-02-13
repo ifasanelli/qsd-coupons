@@ -7,7 +7,7 @@ class PromotionsController < ApplicationController
 
   def show
     @promotion = Promotion.find(params[:id])
-    @coupons = @promotion.coupons
+    @coupons = @promotion.coupons.where(status: :available)
   end
 
   def new
@@ -47,7 +47,19 @@ class PromotionsController < ApplicationController
       unless @promotion.user != current_user
 
     @promotion.approved!
+    @promotion.create_record_approval(email: current_user.email,
+                                      date: Time.zone.now)
     redirect_to @promotion, notice: 'Promoção aprovada com sucesso'
+  end
+
+  def generate_coupons
+    @promotion = Promotion.find(params[:id])
+    if @promotion.approved?
+      @promotion.issued!
+      @promotion.generate_coupons
+      flash[:notice] = "Foram criados #{@promotion.max_usage} cupons"
+    end
+    redirect_to @promotion
   end
 
   private

@@ -1,3 +1,5 @@
-<% @coupon.code %>
+<%= @coupon.code %>
+<%= @coupon.status %>
 
-<%= link_to 'Deletar cupom', promotion_coupon_path(@coupon), method: :delete %>
+
+<%= link_to 'Deletar cupom', discard_promotion_coupon_path(@promotion, @coupon) %>

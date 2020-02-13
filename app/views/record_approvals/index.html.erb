@@ -1,0 +1,22 @@
+<% if @record_approvals.any? %>
+<table>
+  <thead>
+    <th>
+      <td>Email</td>
+      <td>Data/hora</td>
+      <td>Promoção</td>
+    </th>
+  </thead>
+  <tbody>
+  <% @record_approvals.each do |record_approval| %>
+    <tr>
+    <td><%= record_approval.email %></td>
+    <td><%= record_approval.date %>%</td>
+    <td><%= record_approval.promotion_id %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<% else %>
+  <p>Nenhuma promoção aprovada</p>
+<% end %>
