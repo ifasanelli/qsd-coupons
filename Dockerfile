@@ -1,6 +1,7 @@
 FROM ruby:2.6.3
 MAINTAINER Quero ser dev <contato@campuscode.com.br>
 
+ENV BUNDLER_VERSION 2.1.4
 ENV NODE_VERSION 12
 RUN curl -sL https://deb.nodesource.com/setup_$NODE_VERSION.x | bash -
 
@@ -20,7 +21,7 @@ RUN mkdir -p /qsd_coupon
 WORKDIR /qsd_coupon
 COPY Gemfile Gemfile
 COPY Gemfile.lock Gemfile.lock
-RUN gem install bundler -v 2.1.2
+RUN gem install bundler:2.1.4
 RUN bundle install
 RUN gem install bundler-audit
 
