@@ -1,11 +1,11 @@
 <% if @record_approvals.any? %>
-<table>
+<table class="ls-table">
   <thead>
-    <th>
+     <tr>
       <td>Email</td>
       <td>Data/hora</td>
       <td>Promoção</td>
-    </th>
+    </tr>
   </thead>
   <tbody>
   <% @record_approvals.each do |record_approval| %>
