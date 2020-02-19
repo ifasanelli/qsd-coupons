@@ -11,7 +11,7 @@
   <% @record_approvals.each do |record_approval| %>
     <tr>
     <td><%= record_approval.email %></td>
-    <td><%= record_approval.date %>%</td>
+    <td><%= record_approval.created_at %>%</td>
     <td><%= record_approval.promotion_id %></td>
     </tr>
   <% end %>

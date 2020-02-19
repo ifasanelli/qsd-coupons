@@ -46,9 +46,7 @@ class PromotionsController < ApplicationController
     return redirect_to root_path, alert: 'Você não pode fazer essa ação'\
       unless @promotion.user != current_user
 
-    @promotion.approved!
-    @promotion.create_record_approval(email: current_user.email,
-                                      date: Time.zone.now)
+    @promotion.approve!(current_user)
     redirect_to @promotion, notice: 'Promoção aprovada com sucesso'
   end
 
