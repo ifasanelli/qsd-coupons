@@ -7,12 +7,12 @@
           <fieldset>
 
             <%= f.label :email, class: 'ls-label' do %>
-              <b class="ls-label-text ls-hidden-accessible">Email</b>
+              <b class="ls-label-text ls-hidden-accessible"><%= User.human_attribute_name(:email) %></b>
               <%= f.email_field :email, autofocus: true, autocomplete: 'email', placeholder: 'Email', class: 'ls-login-bg-user ls-field-lg' %>
             <% end %>
 
             <%= f.label :password, class: 'ls-label' do %>
-              <b class="ls-label-text ls-hidden-accessible">Senha</b>
+              <b class="ls-label-text ls-hidden-accessible"><%= User.human_attribute_name(:password) %></b>
               <div class="ls-prefix-group ls-field-lg">
                 <%= f.password_field :password, autocomplete: "current-password", placeholder: 'Senha', id: 'password_field', class: 'ls-login-bg-password'  %>
                 <a class="ls-label-text-prefix ls-toggle-pass ls-ico-eye"
@@ -27,10 +27,9 @@
               </div>
             <% end %>
 
-            <%= f.submit "Log in", class: 'ls-btn-primary ls-btn-block ls-btn-lg' %>
+            <%= f.submit I18n.t(:sign_in, scope: [:devise, :shared, :links]), class: 'ls-btn-primary ls-btn-block ls-btn-lg' %>
 
             <br>
-            <%= render "devise/shared/links" %>
           </fieldset>
         <% end %>
       </div>
