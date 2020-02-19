@@ -1,0 +1,16 @@
+---
+pt-BR:
+  activerecord:
+    models:
+      coupon:
+        one: 'Cupom'
+        other: 'Cupons'
+    attributes:
+      coupon:
+        code: 'Código do Cupom'
+        promotion_id: 'Promoção'
+        status: 'Status'
+        statuses:
+          available: 'Disponível'
+          burnt: 'Usado'
+          discarded: 'Descartado'

@@ -79,10 +79,17 @@
       <% end %>
     <% elsif @promotion.issued? %>
       <table class="ls-table">
+       <thead>
+        <tr>
+          <th><%= Coupon.human_attribute_name(:code) %></th>
+            <th class="hidden-xs"><%= Coupon.human_attribute_name(:status) %></th>
+          </tr>
+        </thead>
         <tbody>
         <% @coupons.each do |coupon| %>
           <tr>
             <td><%= link_to coupon.code, promotion_coupon_path(coupon.id) %></td>
+            <td><%= Coupon.human_enum_name(:status, coupon.status) %></td>
           </tr>
         <% end %>
         </tbody>
